@@ -13,10 +13,10 @@ type Result = {
 }
 
 function App() {
-  const [lastupdate, setLastUpdate] = useState<string>([])
+  const [lastupdate, setLastUpdate] = useState<string>("")
   const [instructorranking, setInstructorRanking] = useState<Result[]>([])
   const [programranking, setProgramRanking] = useState<Result[]>([])
-  const [searchword, setSearchWord] = useState<string>([])
+  const [searchword, setSearchWord] = useState<string>("")
   const [historyresult, setHistoryResult] = useState<Result[]>([])
   const formik = useFormik({
     initialValues: {
