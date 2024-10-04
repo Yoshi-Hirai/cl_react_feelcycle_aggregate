@@ -60,8 +60,8 @@ function App() {
       console.log(JSON.stringify(jsonObject))
       const response = await fetch('https://q23piaz1l1.execute-api.us-east-1.amazonaws.com',
         { // クロスオリジン対応
-          //mode: "cors",  // クロスオリジンリクエストであることを指定
-          //credentials: "include",
+          mode: "cors",  // クロスオリジンリクエストであることを指定
+          credentials: "include",
           // クロスオリジン対応(ここまで)
           method: "POST",
           body: JSON.stringify(jsonObject)
