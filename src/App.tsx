@@ -1,4 +1,4 @@
-import { Button, Box, ChakraProvider, Flex, Input, Radio, RadioGroup, Text} from '@chakra-ui/react'
+import { Button, Box, ChakraProvider, Flex, Input, Text} from '@chakra-ui/react'
 import './App.css'
 import { useEffect, useState } from 'react'
 import {useFormik} from 'formik'
@@ -45,7 +45,7 @@ function App() {
       }
     }
   })
-  const handleOptionChange = (event) => {
+  const handlerActionChange = (event : React.ChangeEvent<HTMLInputElement>) => {
     formik.setFieldValue("action", event.target.value)
   }
 
@@ -93,7 +93,7 @@ function App() {
                     id="action0" 
                     name="action" 
                     value="Program"
-                    onChange={handleOptionChange}
+                    onChange={handlerActionChange}
                     checked={formik.values.action === "Program"}
                   />
                   Program
@@ -102,7 +102,7 @@ function App() {
                     id="action1" 
                     name="action" 
                     value="Instructor"
-                    onChange={handleOptionChange}
+                    onChange={handlerActionChange}
                     checked={formik.values.action === "Instructor"}
                   />
                   Instructor
