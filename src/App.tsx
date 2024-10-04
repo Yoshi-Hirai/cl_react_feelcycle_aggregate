@@ -58,7 +58,7 @@ function App() {
         keyword: "",
       }
       console.log(JSON.stringify(jsonObject))
-      const response = await fetch('https://q23piaz1l1.execute-api.us-east-1.amazonaws.com',
+      const response = await fetch('https://tl7wjv35kqaysb5z4kf22rnhhe0rexvh.lambda-url.us-east-1.on.aws/',
         { // クロスオリジン対応
           mode: "cors",  // クロスオリジンリクエストであることを指定
           credentials: "include",
