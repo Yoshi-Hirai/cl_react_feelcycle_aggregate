@@ -29,10 +29,9 @@ function App() {
 
       async function getRecords() {
         console.log(JSON.stringify(val))
-        const response = await fetch('https://q23piaz1l1.execute-api.us-east-1.amazonaws.com',
+        const response = await fetch('https://y473x6lzgmrkj4wg4uwx3kmavm0hhfda.lambda-url.us-east-1.on.aws/',
           { // クロスオリジン対応
-            //mode: "cors",  // クロスオリジンリクエストであることを指定
-            //credentials: "include",
+            mode: "cors",  // クロスオリジンリクエストであることを指定
             // クロスオリジン対応(ここまで)
             method: "POST",
             body: JSON.stringify(val)
@@ -58,10 +57,9 @@ function App() {
         keyword: "",
       }
       console.log(JSON.stringify(jsonObject))
-      const response = await fetch('https://tl7wjv35kqaysb5z4kf22rnhhe0rexvh.lambda-url.us-east-1.on.aws/',
+      const response = await fetch('https://y473x6lzgmrkj4wg4uwx3kmavm0hhfda.lambda-url.us-east-1.on.aws/',
         { // クロスオリジン対応
           mode: "cors",  // クロスオリジンリクエストであることを指定
-          credentials: "include",
           // クロスオリジン対応(ここまで)
           method: "POST",
           body: JSON.stringify(jsonObject)
