@@ -18,6 +18,34 @@ function App() {
   const [programranking, setProgramRanking] = useState<Result[]>([])
   const [searchword, setSearchWord] = useState<string>("")
   const [historyresult, setHistoryResult] = useState<Result[]>([])
+
+  const getProgramColor = (program) => {
+    if(!program.indexOf("BB3")) {
+      return "red"
+    }
+    else if(!program.indexOf("BSBi")) {
+      return "#4A6B64"
+    }
+    else if(!program.indexOf("BSWi")) {
+      return "#A000A0"
+    }
+    else if(!program.indexOf("BB2")) {
+      return "orange"
+    }
+    else if(!program.indexOf("BB1")) {
+      return "#FBE000"
+    }
+    else if(!program.indexOf("BSL")) {
+      return "blue"
+    }
+    else if(!program.indexOf("BSB")) {
+      return "#52BCDE"
+    }
+    else if(!program.indexOf("BSW")) {
+      return "#D190DC"
+    }
+  }
+
   const formik = useFormik({
     initialValues: {
       action: "Program",
@@ -124,10 +152,18 @@ function App() {
               {historyresult.map((data) => (
               <div key={data.id}>
                 <Flex align="center" justifyContent="space-between">
-                <Text>{data.start}</Text>
-                <Text>{data.studio}</Text>
-                <Text>{data.instructor}</Text>
-                <Text>{data.program}</Text>
+                  <Box w='100%'>
+                    <Text>{data.start}</Text>
+                  </Box>
+                  <Box w='100%'>
+                    <Text>{data.studio}</Text>
+                  </Box>
+                  <Box as='b' w='100%'>
+                    <Text>{data.instructor}</Text>
+                  </Box>
+                  <Box bg={getProgramColor(data.program)} w='100%'>
+                    <Text as='b'>{data.program}</Text>
+                  </Box>
                 </Flex>
               </div>
               ))}
@@ -140,8 +176,12 @@ function App() {
             {instructorranking.map((data) => (
             <div key={data.id}>
               <Flex align="center" justifyContent="space-between">
-                <Text>{data.instructor}</Text>
-                <Text>{data.count}</Text>
+                <Box w='100%'>
+                  <Text as='b'>{data.instructor}</Text>
+                </Box>
+                <Box w='100%'>
+                  <Text as='b'>{data.count}</Text>
+                </Box>
               </Flex>
             </div>
             ))}
@@ -153,8 +193,12 @@ function App() {
             {programranking.map((data) => (
             <div key={data.id}>
               <Flex align="center" justifyContent="space-between">
-                <Text>{data.program}</Text>
-                <Text>{data.count}</Text>
+                <Box bg={getProgramColor(data.program)} w='100%'>
+                  <Text as='b'>{data.program}</Text>
+                </Box>
+                <Box w='100%'>
+                  <Text as='b'>{data.count}</Text>
+                </Box>
               </Flex>
             </div>
             ))}
