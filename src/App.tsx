@@ -19,7 +19,7 @@ function App() {
   const [searchword, setSearchWord] = useState<string>("")
   const [historyresult, setHistoryResult] = useState<Result[]>([])
 
-  const getProgramColor = (program) => {
+  const getProgramColor = (program: string) => {
     if(!program.indexOf("BB3")) {
       return "red"
     }
