@@ -1,4 +1,5 @@
-import { Button, Box, ChakraProvider, Flex, Input, Text} from '@chakra-ui/react'
+//import { Button, Box, ChakraProvider, Flex, Input, Text, Table, Tr, Th, Tabs, TabList, TabPanels, Tab, TabPanel} from '@chakra-ui/react'
+import {Button, Box, ChakraProvider, Flex, Input, Text} from '@chakra-ui/react'
 import './App.css'
 import { useEffect, useState } from 'react'
 import {useFormik} from 'formik'
@@ -12,10 +13,18 @@ type Result = {
   count: number
 }
 
+type Totalling = {
+  id: number
+  item: string
+  count: number
+  value: number
+}
+
 function App() {
   const [lastupdate, setLastUpdate] = useState<string>("")
   const [instructorranking, setInstructorRanking] = useState<Result[]>([])
   const [programranking, setProgramRanking] = useState<Result[]>([])
+  const [programcategorytotalling, setProgramCategoryTotalling] = useState<Totalling[]>([])
   const [searchword, setSearchWord] = useState<string>("")
   const [historyresult, setHistoryResult] = useState<Result[]>([])
 
@@ -98,6 +107,7 @@ function App() {
       setLastUpdate(data.lastupdate)
       setInstructorRanking(data.instructorranking)
       setProgramRanking(data.programranking)
+      setProgramCategoryTotalling(data.programcategorytotalling)
     }
   }, [])
 
@@ -170,40 +180,88 @@ function App() {
             </div>
           }
         </Box>
-        <Box mb="16px">
-          <div>
-            <Text fontSize='2xl'>INSTRUCTOR RANKING</Text>
-            {instructorranking.map((data) => (
-            <div key={data.id}>
-              <Flex align="center" justifyContent="space-between">
-                <Box w='100%'>
-                  <Text as='b'>{data.instructor}</Text>
-                </Box>
-                <Box w='100%'>
-                  <Text as='b'>{data.count}</Text>
-                </Box>
-              </Flex>
+
+        <Flex align="center" justifyContent="space-between" gap="32px">
+          <Box mb="16px">
+            <div>
+              <Text fontSize='2xl'> INSTRUCTOR RANKING </Text>
+              {instructorranking.map((data) => (
+              <div key={data.id}>
+                <Flex align="center" justifyContent="space-between">
+                  <Box w='100%'>
+                    <Text as='b'>{data.instructor}</Text>
+                  </Box>
+                  <Box w='100%'>
+                    <Text as='b'>{data.count}</Text>
+                  </Box>
+                </Flex>
+              </div>
+              ))}
             </div>
-            ))}
-          </div>
-        </Box>
-        <Box mb="16px">
-          <div>
-            <Text fontSize='2xl'>PROGRAM RANKING</Text>
-            {programranking.map((data) => (
-            <div key={data.id}>
-              <Flex align="center" justifyContent="space-between">
-                <Box bg={getProgramColor(data.program)} w='100%'>
-                  <Text as='b'>{data.program}</Text>
-                </Box>
-                <Box w='100%'>
-                  <Text as='b'>{data.count}</Text>
-                </Box>
-              </Flex>
+          </Box>
+          <Box mb="16px">
+            <div>
+              <Text fontSize='2xl'> PROGRAM RANKING </Text>
+              {programranking.map((data) => (
+              <div key={data.id}>
+                <Flex align="center" justifyContent="space-between">
+                  <Box bg={getProgramColor(data.program)} w='100%'>
+                    <Text as='b'>{data.program}</Text>
+                  </Box>
+                  <Box w='100%'>
+                    <Text as='b'>{data.count}</Text>
+                  </Box>
+                </Flex>
+              </div>
+              ))}
             </div>
+          </Box>
+        </Flex>
+        <Flex>
+          <Box mb="16px">
+            <div>
+              <Text fontSize='2xl'>PROGRAM CATEGORY TOTAL</Text>
+              {programcategorytotalling.map((data) => (
+              <div key={data.id}>
+                <Flex align="center" justifyContent="space-between">
+                  <Box bg={getProgramColor(data.item)} w='100%'>
+                    <Text as='b'>{data.item}</Text>
+                  </Box>
+                  <Box w='100%'>
+                    <Text as='b'>{data.count}</Text>
+                  </Box>
+                  <Box w='100%'>
+                    <Text as='b'>{data.value}%</Text>
+                  </Box>
+                </Flex>
+              </div>
+              ))}
+            </div>
+          </Box>
+        </Flex>
+{/*
+        <Table>
+          <Tr>
+            {programcategorytotalling.map((data) => (
+              <Th bg={getProgramColor(data.item)} width='{data.value}%'>{data.item}</Th>
             ))}
-          </div>
-        </Box>
+          </Tr>
+        </Table>
+        <Tabs variant='soft-rounded' colorScheme='green'>
+          <TabList>
+            <Tab>Tab 1</Tab>
+            <Tab>Tab 2</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <p>one!</p>
+            </TabPanel>
+            <TabPanel>
+              <p>two!</p>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+*/}     
       </div>
     </ChakraProvider>
   )
