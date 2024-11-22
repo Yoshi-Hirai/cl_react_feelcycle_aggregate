@@ -22,7 +22,7 @@ type Totalling = {
 
 type WesternTotalling = {
   westerncalender : string
-  totalinformation : Totalling
+  totalinformation : Totalling[]
 }
 
 function App() {
@@ -258,7 +258,7 @@ function App() {
         <Tabs variant='soft-rounded' colorScheme='green'>
           <TabList>
             {westernyearinstructortotalling.map((data) => (
-              <div key={data.id}>
+              <div key={data.westerncalender}>
                 <Tab>{data.westerncalender}</Tab>
               </div>
             ))}
@@ -268,14 +268,16 @@ function App() {
                 <div>
                   <TabPanel>
                     {data.totalinformation.map((data2) => (
-                      <Flex>
-                        <Box w='100%'>
-                          <Text as='b'>{data2.item}</Text>
-                        </Box>
-                        <Box w='100%'>
-                          <Text>{data2.count}</Text>
-                        </Box>
-                      </Flex>
+                      <div key={data2.id}>
+                        <Flex>
+                          <Box w='100%'>
+                            <Text as='b'>{data2.item}</Text>
+                          </Box>
+                          <Box w='100%'>
+                            <Text>{data2.count}</Text>
+                          </Box>
+                        </Flex>
+                      </div>
                     ))}
                   </TabPanel>
                 </div>
