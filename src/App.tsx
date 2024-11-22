@@ -1,5 +1,5 @@
 //import { Button, Box, ChakraProvider, Flex, Input, Text, Table, Tr, Th, Tabs, TabList, TabPanels, Tab, TabPanel} from '@chakra-ui/react'
-import {Button, Box, ChakraProvider, Flex, Input, Text} from '@chakra-ui/react'
+import {Button, Box, ChakraProvider, Flex, Input, Text, Tabs, TabList, TabPanels, Tab, TabPanel} from '@chakra-ui/react'
 import './App.css'
 import { useEffect, useState } from 'react'
 import {useFormik} from 'formik'
@@ -20,6 +20,11 @@ type Totalling = {
   value: number
 }
 
+type WesternTotalling = {
+  westerncalender : string
+  totalinformation : Totalling
+}
+
 function App() {
   const [lastupdate, setLastUpdate] = useState<string>("")
   const [instructorranking, setInstructorRanking] = useState<Result[]>([])
@@ -27,6 +32,7 @@ function App() {
   const [programcategorytotalling, setProgramCategoryTotalling] = useState<Totalling[]>([])
   const [searchword, setSearchWord] = useState<string>("")
   const [historyresult, setHistoryResult] = useState<Result[]>([])
+  const [westernyearinstructortotalling, setWesternYearInstructorTotalling] = useState<WesternTotalling[]>([])
 
   const getProgramColor = (program: string) => {
     if(!program.indexOf("BB3")) {
@@ -108,6 +114,7 @@ function App() {
       setInstructorRanking(data.instructorranking)
       setProgramRanking(data.programranking)
       setProgramCategoryTotalling(data.programcategorytotalling)
+      setWesternYearInstructorTotalling(data.westerninstructortotalling)
     }
   }, [])
 
@@ -247,21 +254,34 @@ function App() {
             ))}
           </Tr>
         </Table>
+*/}
         <Tabs variant='soft-rounded' colorScheme='green'>
           <TabList>
-            <Tab>Tab 1</Tab>
-            <Tab>Tab 2</Tab>
+            {westernyearinstructortotalling.map((data) => (
+              <div key={data.id}>
+                <Tab>{data.westerncalender}</Tab>
+              </div>
+            ))}
           </TabList>
           <TabPanels>
-            <TabPanel>
-              <p>one!</p>
-            </TabPanel>
-            <TabPanel>
-              <p>two!</p>
-            </TabPanel>
+            {westernyearinstructortotalling.map((data) => (
+                <div>
+                  <TabPanel>
+                    {data.totalinformation.map((data2) => (
+                      <Flex>
+                        <Box w='100%'>
+                          <Text as='b'>{data2.item}</Text>
+                        </Box>
+                        <Box w='100%'>
+                          <Text>{data2.count}</Text>
+                        </Box>
+                      </Flex>
+                    ))}
+                  </TabPanel>
+                </div>
+              ))}
           </TabPanels>
         </Tabs>
-*/}     
       </div>
     </ChakraProvider>
   )
