@@ -33,6 +33,7 @@ function App() {
   const [searchword, setSearchWord] = useState<string>("")
   const [historyresult, setHistoryResult] = useState<Result[]>([])
   const [westernyearinstructortotalling, setWesternYearInstructorTotalling] = useState<WesternTotalling[]>([])
+  const [westernyearprogramtotalling, setWesternYearProgramTotalling] = useState<WesternTotalling[]>([])
 
   const getProgramColor = (program: string) => {
     if(!program.indexOf("BB3")) {
@@ -115,6 +116,7 @@ function App() {
       setProgramRanking(data.programranking)
       setProgramCategoryTotalling(data.programcategorytotalling)
       setWesternYearInstructorTotalling(data.westerninstructortotalling)
+      setWesternYearProgramTotalling(data.westernprogramtotalling)
     }
   }, [])
 
@@ -264,10 +266,10 @@ function App() {
             ))}
           </TabList>
           <TabPanels>
-            {westernyearinstructortotalling.map((data) => (
+            {westernyearinstructortotalling.map((data, i) => (
                 <div>
                   <TabPanel>
-                    {data.totalinformation.map((data2) => (
+                    {data.totalinformation.map((data2, j) => (
                       <div key={data2.id}>
                         <Flex>
                           <Box w='100%'>
@@ -275,6 +277,12 @@ function App() {
                           </Box>
                           <Box w='100%'>
                             <Text>{data2.count}</Text>
+                          </Box>
+                          <Box bg={getProgramColor(westernyearprogramtotalling[i].totalinformation[j].item)}w='100%'>
+                            <Text as='b'>{westernyearprogramtotalling[i].totalinformation[j].item}</Text>
+                          </Box>
+                          <Box w='100%'>
+                            <Text>{westernyearprogramtotalling[i].totalinformation[j].count}</Text>
                           </Box>
                         </Flex>
                       </div>
