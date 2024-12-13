@@ -67,6 +67,7 @@ function App() {
     initialValues: {
       action: "Program",
       keyword: "",
+      isgroup: false
     },
     onSubmit: (val) => {
       console.log("Get Value.", val)
@@ -92,6 +93,9 @@ function App() {
   })
   const handlerActionChange = (event : React.ChangeEvent<HTMLInputElement>) => {
     formik.setFieldValue("action", event.target.value)
+  }
+  const handlerGroupChange = (event : React.ChangeEvent<HTMLInputElement>) => {
+    formik.setFieldValue("isgroup", event.target.checked)
   }
 
   useEffect(() => {
@@ -158,7 +162,7 @@ function App() {
                 <input
                   type="checkbox"
                   name="isGroup"
-                  onChange={() => formik.setFieldValue("isGroup", !formik.values.isGroup)}
+                  onChange={handlerGroupChange}
                 />
                 GROUPING                
               </div>
