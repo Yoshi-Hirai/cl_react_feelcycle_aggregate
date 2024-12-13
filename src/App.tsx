@@ -1,5 +1,5 @@
 //import { Button, Box, ChakraProvider, Flex, Input, Text, Table, Tr, Th, Tabs, TabList, TabPanels, Tab, TabPanel} from '@chakra-ui/react'
-import {Button, Box, ChakraProvider, Flex, Input, Text, Tabs, TabList, TabPanels, Tab, TabPanel} from '@chakra-ui/react'
+import {Button, Box, ChakraProvider, Checkbox, Flex, Input, Text, Tabs, TabList, TabPanels, Tab, TabPanel} from '@chakra-ui/react'
 import './App.css'
 import { useEffect, useState } from 'react'
 import {useFormik} from 'formik'
@@ -30,6 +30,7 @@ function App() {
   const [instructorranking, setInstructorRanking] = useState<Result[]>([])
   const [programranking, setProgramRanking] = useState<Result[]>([])
   const [programcategorytotalling, setProgramCategoryTotalling] = useState<Totalling[]>([])
+  const [isgroup, setIsGroup] = useState<boolean>(false)
   const [searchword, setSearchWord] = useState<string>("")
   const [historyresult, setHistoryResult] = useState<Result[]>([])
   const [westernyearinstructortotalling, setWesternYearInstructorTotalling] = useState<WesternTotalling[]>([])
@@ -83,6 +84,7 @@ function App() {
         )
         const data = await response.json()
         console.log(data)
+        setIsGroup(data.isgroup)
         setSearchWord(data.searchword)
         setHistoryResult(data.history)
       }
@@ -90,6 +92,10 @@ function App() {
   })
   const handlerActionChange = (event : React.ChangeEvent<HTMLInputElement>) => {
     formik.setFieldValue("action", event.target.value)
+  }
+  const handlerGroupChange = (event : React.ChangeEvent<HTMLInputElement>) => {
+    console.log("handlerGroup")
+    formik.setFieldValue("isGroup", !formik.values.isGroup)
   }
 
   useEffect(() => {
@@ -153,6 +159,14 @@ function App() {
                   Instructor
               </div>
               <div>
+                <input
+                  type="checkbox"
+                  name="isGroup"
+                  onChange={handlerGroupChange}
+                />
+                GROUPING                
+              </div>
+              <div>
                 <Input placeholder='Input keyword' mb="4px"
                   type="text" 
                   id="keyword" 
@@ -168,23 +182,42 @@ function App() {
               <Text fontSize='2xl'>Serach Result</Text>
               <Text>keyword : {searchword}</Text>
               <Text>count : {historyresult.length}</Text>
+              {isgroup
+                ? <div>true</div>
+                : <div>false</div>
+              }
               {historyresult.map((data) => (
-              <div key={data.id}>
-                <Flex align="center" justifyContent="space-between">
-                  <Box w='100%'>
-                    <Text>{data.start}</Text>
-                  </Box>
-                  <Box w='100%'>
-                    <Text>{data.studio}</Text>
-                  </Box>
-                  <Box as='b' w='100%'>
-                    <Text>{data.instructor}</Text>
-                  </Box>
-                  <Box bg={getProgramColor(data.program)} w='100%'>
-                    <Text as='b'>{data.program}</Text>
-                  </Box>
-                </Flex>
-              </div>
+                <div key={data.id}>
+                  {!isgroup
+                    ?
+                      <Flex align="center" justifyContent="space-between">
+                        <Box w='100%'>
+                          <Text>{data.start}</Text>
+                        </Box>
+                        <Box w='100%'>
+                          <Text>{data.studio}</Text>
+                        </Box>
+                        <Box as='b' w='100%'>
+                          <Text>{data.instructor}</Text>
+                        </Box>
+                        <Box bg={getProgramColor(data.program)} w='100%'>
+                          <Text as='b'>{data.program}</Text>
+                        </Box>
+                      </Flex>
+                    :
+                      <Flex align="center" justifyContent="space-between">
+                        <Box as='b' w='100%'>
+                          <Text>{data.instructor}</Text>
+                        </Box>
+                        <Box bg={getProgramColor(data.program)} w='100%'>
+                          <Text as='b'>{data.program}</Text>
+                        </Box>
+                        <Box w='100%'>
+                          <Text>{data.count}</Text>
+                        </Box>
+                      </Flex>
+                  }
+                </div>
               ))}
             </div>
           }
