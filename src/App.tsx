@@ -1,5 +1,5 @@
 //import { Button, Box, ChakraProvider, Flex, Input, Text, Table, Tr, Th, Tabs, TabList, TabPanels, Tab, TabPanel} from '@chakra-ui/react'
-import {Button, Box, ChakraProvider, Checkbox, Flex, Input, Text, Tabs, TabList, TabPanels, Tab, TabPanel} from '@chakra-ui/react'
+import {Button, Box, ChakraProvider, Flex, Input, Text, Tabs, TabList, TabPanels, Tab, TabPanel} from '@chakra-ui/react'
 import './App.css'
 import { useEffect, useState } from 'react'
 import {useFormik} from 'formik'
@@ -93,10 +93,6 @@ function App() {
   const handlerActionChange = (event : React.ChangeEvent<HTMLInputElement>) => {
     formik.setFieldValue("action", event.target.value)
   }
-  const handlerGroupChange = (event : React.ChangeEvent<HTMLInputElement>) => {
-    console.log("handlerGroup")
-    formik.setFieldValue("isGroup", !formik.values.isGroup)
-  }
 
   useEffect(() => {
     getRecords()
@@ -162,7 +158,7 @@ function App() {
                 <input
                   type="checkbox"
                   name="isGroup"
-                  onChange={handlerGroupChange}
+                  onChange={() => formik.setFieldValue("isGroup", !formik.values.isGroup)}
                 />
                 GROUPING                
               </div>
